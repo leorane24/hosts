@@ -1,5 +1,12 @@
 #!/bin/bash
 
+check_IP() {
+	dns="$3"
+	echo "Checking $name with IP $etc_IP"
+        if ! nslookup $name $dns | grep -q "$etc_IP"; then
+                echo "Bogus IP for $name in /etc/hosts!"
+        fi
+}
 while read IP
 do
 	arr=($IP)
@@ -8,8 +15,6 @@ do
 	if [[ $etc_IP == "#" ]]; then
                 break
 	fi
-	echo "Checking $name with IP $etc_IP"
-	if ! nslookup $name 8.8.8.8 | grep -q "$etc_IP"; then
-		echo "Bogus IP for $name in /etc/hosts!"
-	fi
+	
+	check_IP "$name" "$etc_IP" "8.8.8.8"
 done
