@@ -18,3 +18,5 @@ do
 	
 	check_IP "$name" "$etc_IP" "8.8.8.8"
 done
+
+Năstase Andrei-Dumitru
